@@ -1,0 +1,38 @@
+.CurrentLocMainContainer {
+  padding-top: 60px;
+}
+.CurrentLocMainContainer__city {
+  font-family: Poppins;
+  font-size: 50px;
+  font-weight: 300;
+  color: #fff;
+}
+.CurrentLocMainContainer__rainy {
+  width: 173px;
+  margin-top: 30px;
+}
+.CurrentLocMainContainer__temp {
+  color: #fff;
+  font-family: Poppins;
+  font-size: 50px;
+  margin-top: 10px;
+  font-weight: 200;
+}
+.CurrentLocMainContainer__status {
+  color: #fff;
+  font-family: Poppins;
+  font-size: 30px;
+  margin-top: 20px;
+  font-weight: 200;
+}
+.CurrentLocMainContainer__tempRange {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 200;
+}
+.CurrentLocMainContainer__tempRange__left {
+  margin-right: 130px;
+}/*# sourceMappingURL=CurrentLoc.css.map */

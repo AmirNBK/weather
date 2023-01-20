@@ -1,0 +1,12 @@
+.futureWeatherContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 35px auto;
+  width: 50%;
+  border-top: 1px solid #DDDDDD;
+  padding-top: 15px;
+  color: #fff;
+}
+.futureWeatherContainer__day {
+  margin-right: 30px;
+}/*# sourceMappingURL=Future.css.map */

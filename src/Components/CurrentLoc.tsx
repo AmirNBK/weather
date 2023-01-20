@@ -21,20 +21,37 @@ const Current = () => {
     const [weatherCode, setWeatherCode] = useState("")
     const [description, setDescription] = useState("")
     const [weatherIcon,setWeatherIcon] = useState()
+    const [minTemp,setMinTemp] = useState("")
+    const [maxTemp,setMaxTemp] = useState("")
 
     useEffect(() => {
         getCity()
         getDescription()
     }, [])
 
+    const calculateAverage = (array) => {
+        var total = 0;
+        var count = 0;
+    
+        array.forEach(function(item, index) {
+            total += item;
+            count++;
+        });
+    
+        return (total / count).toFixed(1);
+    }
+
     const getPosition = (position) => {
         setLat(position.coords.latitude)
         setLong(position.coords.longitude)
         axios
-            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m&current_weather=true`)
+            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m&current_weather=true&timezone=auto&daily=temperature_2m_max,temperature_2m_min`)
             .then((response) => {
                 setTemp(response.data.current_weather.temperature)
                 setWeatherCode(response.data.current_weather.weathercode)
+                setMinTemp(calculateAverage(response.data.daily.temperature_2m_min))
+                setMaxTemp(calculateAverage(response.data.daily.temperature_2m_max))
+
             })
             .catch((error) => {
 
@@ -125,8 +142,8 @@ const Current = () => {
             <img src={weatherIcon} className='CurrentLocMainContainer__rainy' />
             <div className='CurrentLocMainContainer__temp'> {temp}° </div>
             <div className='CurrentLocMainContainer__tempRange'>
-                <div className='CurrentLocMainContainer__tempRange__left'> 6° </div>
-                <div className='CurrentLocMainContainer__tempRange__right'> 22° </div>
+                <div className='CurrentLocMainContainer__tempRange__left'> {minTemp}° </div>
+                <div className='CurrentLocMainContainer__tempRange__right'> {maxTemp}° </div>
             </div>
             <div className='CurrentLocMainContainer__status'> {description} </div>
         </div>

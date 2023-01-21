@@ -12,17 +12,18 @@ import snow from '../Assets/snow.svg'
 import thunderstorm from '../Assets/thunderstorm.svg'
 
 
-const Current = () => {
+const Current = (props: { lat: string; long: string }) => {
 
-    const [lat, setLat] = useState("")
-    const [long, setLong] = useState("")
+    const lat = props.lat;
+    const long = props.long;
+
     const [temp, setTemp] = useState("")
     const [city, setCity] = useState("")
     const [weatherCode, setWeatherCode] = useState("")
     const [description, setDescription] = useState("")
-    const [weatherIcon,setWeatherIcon] = useState()
-    const [minTemp,setMinTemp] = useState("")
-    const [maxTemp,setMaxTemp] = useState("")
+    const [weatherIcon, setWeatherIcon] = useState()
+    const [minTemp, setMinTemp] = useState("")
+    const [maxTemp, setMaxTemp] = useState("")
 
     useEffect(() => {
         getCity()
@@ -32,20 +33,18 @@ const Current = () => {
     const calculateAverage = (array) => {
         var total = 0;
         var count = 0;
-    
-        array.forEach(function(item, index) {
+
+        array.forEach(function (item, index) {
             total += item;
             count++;
         });
-    
+
         return (total / count).toFixed(1);
     }
 
-    const getPosition = (position) => {
-        setLat(position.coords.latitude)
-        setLong(position.coords.longitude)
+    const getPosition = () => {
         axios
-            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m&current_weather=true&timezone=auto&daily=temperature_2m_max,temperature_2m_min`)
+            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto`)
             .then((response) => {
                 setTemp(response.data.current_weather.temperature)
                 setWeatherCode(response.data.current_weather.weathercode)
@@ -64,7 +63,7 @@ const Current = () => {
     }
 
     window.navigator.geolocation
-        .getCurrentPosition(getPosition, console.log);
+        .getCurrentPosition(getPosition);
 
     const getCity = () => {
         axios
@@ -128,7 +127,7 @@ const Current = () => {
         if (weatherCode == "95") {
             setDescription("Thunderstorm: Slight or moderate")
             setWeatherIcon(thunderstorm)
-            
+
         }
         if (weatherCode == "96" || weatherCode == "99") {
             setDescription("Thunderstorm with slight and heavy hail")

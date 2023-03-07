@@ -50,6 +50,7 @@ const Current = (props: { lat: string; long: string }) => {
                 setWeatherCode(response.data.current_weather.weathercode)
                 setMinTemp(calculateAverage(response.data.daily.temperature_2m_min))
                 setMaxTemp(calculateAverage(response.data.daily.temperature_2m_max))
+                
 
             })
             .catch((error) => {

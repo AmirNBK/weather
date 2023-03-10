@@ -18,10 +18,11 @@ const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
 
     useEffect(() => {
         getDescription()
-    }, [])
+    }, [weatherCode])
 
 
     const getDescription = () => {
+        console.log(weatherCode);
         if (weatherCode == "0") {
             setWeatherIcon(clear)
         }

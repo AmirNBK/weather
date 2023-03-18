@@ -3,11 +3,9 @@ import './Future.css';
 import axios from 'axios'
 import FutureWeatherCard from './FutureWeatherCard/FutureWeatherCard.tsx';
 import clear from '../Assets/clear.svg'
+import ReactLoading from 'react-loading';
 
 const FutureWeather = (props: { lat: any; long: any }) => {
-
-    // const lat = props.lat;
-    // const long = props.long;
 
     useEffect(() => {
         getLocation()
@@ -15,6 +13,7 @@ const FutureWeather = (props: { lat: any; long: any }) => {
 
     const [weekday, setWeekday] = useState([])
     const [weatherCode, setWeatherCode] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const getDayName = (dateStr, locale) => {
         var date = new Date(dateStr);
@@ -29,11 +28,13 @@ const FutureWeather = (props: { lat: any; long: any }) => {
         }
     }
     const getResponse = (position) => {
+        setLoading(true)
         var lat = position.coords.latitude;
         var long = position.coords.longitude;
         axios
             .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto`)
             .then((response) => {
+                setLoading(false)
                 setWeatherCode(response.data.daily.weathercode)
             })
             .catch((error) => {
@@ -58,6 +59,14 @@ const FutureWeather = (props: { lat: any; long: any }) => {
                     <FutureWeatherCard day={item} weatherCode={code} />
                 )
             })}
+            
+            {/* <ReactLoading
+                type='spin'
+                color="#fff"
+                height='10%'
+                width='5%'
+                className='futureWeatherContainer__loading'
+            /> */}
         </div>
     )
 }

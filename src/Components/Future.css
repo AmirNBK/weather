@@ -9,4 +9,15 @@
 }
 .futureWeatherContainer__day {
   margin-right: 30px;
+}
+.futureWeatherContainer__loading {
+  width: 130px;
+  margin: 0 auto;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  text-align: center;
 }/*# sourceMappingURL=Future.css.map */

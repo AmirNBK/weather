@@ -15,11 +15,19 @@ import TemperatureUnitSwitch from './TemperatureUnitSwitch/TemperatureUnitSwitch
 const Main = () => {
     const [lat, setLat] = useState("")
     const [long, setLong] = useState("")
-    const [checked, setChecked] = useState(false);
+    const [temperatureUnit, setTemperatureUnit] = useState('celsius')
 
     const getPosition = (position) => {
         setLat(position.coords.latitude)
         setLong(position.coords.longitude)
+    }
+
+    const handleToggle = (e) => {
+        console.log(e.target.checked);
+        if (e.target.checked) {
+            setTemperatureUnit('fahrenheit')
+        }
+        else setTemperatureUnit('celsius')
     }
 
     window.navigator.geolocation
@@ -27,10 +35,8 @@ const Main = () => {
 
     return (
         <div className='MainContainer'>
-            <div className='' style={{ textAlign: 'right' }}>
-                <TemperatureUnitSwitch/>
-            </div>
-            <Current lat={lat} long={long} />
+            <TemperatureUnitSwitch handleToggle={handleToggle} />
+            <Current lat={lat} long={long} temperatureUnit={temperatureUnit} />
             <FutureWeather lat={lat} long={long} />
         </div>
     )

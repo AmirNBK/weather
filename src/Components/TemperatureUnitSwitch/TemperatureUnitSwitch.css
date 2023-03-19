@@ -1,1 +1,108 @@
-/*# sourceMappingURL=TemperatureUnitSwitch.css.map */
+@charset "UTF-8";
+.TemperatureUnitSwitch {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  font-family: Poppins;
+  /* Button 1 */
+}
+.TemperatureUnitSwitch .row {
+  display: table-row;
+}
+.TemperatureUnitSwitch .toggle-button-cover {
+  display: table-cell;
+  position: relative;
+  width: 200px;
+  box-sizing: border-box;
+}
+.TemperatureUnitSwitch .button-cover {
+  height: 100px;
+  margin: 20px;
+  background-color: #fff;
+  box-shadow: 0 10px 20px -8px #c5d6d6;
+  border-radius: 4px;
+}
+.TemperatureUnitSwitch .button-cover:before {
+  counter-increment: button-counter;
+  content: counter(button-counter);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #d7e3e3;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px;
+}
+.TemperatureUnitSwitch .button-cover,
+.TemperatureUnitSwitch .knobs,
+.TemperatureUnitSwitch .layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.TemperatureUnitSwitch .button {
+  position: relative;
+  top: 60px;
+  width: 74px;
+  height: 36px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+.TemperatureUnitSwitch .button.r,
+.TemperatureUnitSwitch .button.r .layer {
+  border-radius: 100px;
+}
+.TemperatureUnitSwitch .button.b2 {
+  border-radius: 2px;
+}
+.TemperatureUnitSwitch .checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+.TemperatureUnitSwitch .knobs {
+  z-index: 2;
+}
+.TemperatureUnitSwitch .layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+.TemperatureUnitSwitch #button-1 .knobs:before {
+  content: "°C";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: #03a9f4;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+.TemperatureUnitSwitch #button-1 .checkbox:checked + .knobs:before {
+  content: "°F";
+  left: 42px;
+  background-color: #03a9f4;
+}
+.TemperatureUnitSwitch #button-1 .checkbox:checked ~ .layer {
+  background-color: #fcebeb;
+}
+.TemperatureUnitSwitch #button-1 .knobs,
+.TemperatureUnitSwitch #button-1 .knobs:before,
+.TemperatureUnitSwitch #button-1 .layer {
+  transition: 0.3s ease all;
+}/*# sourceMappingURL=TemperatureUnitSwitch.css.map */

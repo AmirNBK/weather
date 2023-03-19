@@ -10,12 +10,14 @@ import rain from '../Assets/rain.svg'
 import snowGrain from '../Assets/snowGrain.svg'
 import snow from '../Assets/snow.svg'
 import thunderstorm from '../Assets/thunderstorm.svg'
+import TemperatureUnitSwitch from './TemperatureUnitSwitch/TemperatureUnitSwitch';
 
 
-const Current = (props: { lat: string; long: string }) => {
+const Current = (props: { lat: string; long: string; temperatureUnit: boolean }) => {
 
     const lat = props.lat;
     const long = props.long;
+    const temperatureUnit = props.temperatureUnit
 
     const [temp, setTemp] = useState("")
     const [city, setCity] = useState("")
@@ -44,13 +46,13 @@ const Current = (props: { lat: string; long: string }) => {
 
     const getPosition = () => {
         axios
-            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto`)
+            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&temperature_unit=${temperatureUnit}`)
             .then((response) => {
                 setTemp(response.data.current_weather.temperature)
                 setWeatherCode(response.data.current_weather.weathercode)
                 setMinTemp(calculateAverage(response.data.daily.temperature_2m_min))
                 setMaxTemp(calculateAverage(response.data.daily.temperature_2m_max))
-                
+
 
             })
             .catch((error) => {

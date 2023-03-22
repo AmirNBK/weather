@@ -83,12 +83,14 @@ const Main = () => {
     return (
         <div className='MainContainer'>
             <div className='MainContainer__top'>
-                <AutoComplete value={value} suggestions={items} onSelect={() => setChangeData(true)}
+                <AutoComplete value={value} suggestions={items} onSelect={() => setChangeData(true)} className='MainContainer__top__input'
                     completeMethod={search} placeholder='Search for a city' onChange={(e) => handleSearch(e.value)} />
                 <TemperatureUnitSwitch handleToggle={handleToggle} />
             </div>
-            <Current lat={lat} long={long} temperatureUnit={temperatureUnit} searchedCity={searchedCity} />
-            <FutureWeather lat={lat} long={long} />
+            <div>
+                <Current lat={lat} long={long} temperatureUnit={temperatureUnit} searchedCity={searchedCity} />
+                <FutureWeather lat={lat} long={long} />
+            </div>
         </div>
     )
 }

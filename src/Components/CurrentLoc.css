@@ -1,11 +1,21 @@
 .CurrentLocMainContainer {
   padding-top: 60px;
 }
+@media screen and (max-width: 576px) {
+  .CurrentLocMainContainer {
+    padding-top: 0px;
+  }
+}
 .CurrentLocMainContainer__city {
   font-family: Poppins;
   font-size: 50px;
   font-weight: 300;
   color: #fff;
+}
+@media screen and (max-width: 390px) {
+  .CurrentLocMainContainer__city {
+    font-size: 40px;
+  }
 }
 .CurrentLocMainContainer__date {
   font-family: Poppins;
@@ -29,6 +39,16 @@
   font-size: 30px;
   margin-top: 20px;
   font-weight: 200;
+}
+@media screen and (max-width: 700px) {
+  .CurrentLocMainContainer__status {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .CurrentLocMainContainer__status {
+    font-size: 20px;
+  }
 }
 .CurrentLocMainContainer__tempRange {
   display: flex;

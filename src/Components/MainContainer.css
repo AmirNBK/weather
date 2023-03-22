@@ -1,3 +1,10 @@
+@media screen and (max-width: 576px) {
+  .MainContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
 .MainContainer__top {
   display: flex;
   flex-direction: row;
@@ -6,4 +13,16 @@
   position: relative;
   top: 30px;
   padding: 0px 70px;
+}
+.MainContainer__top__input input {
+  padding: 0.6rem 0.75rem;
+}
+@media screen and (max-width: 576px) {
+  .MainContainer__top {
+    flex-direction: column-reverse;
+    align-items: center;
+    top: 0;
+    height: 100%;
+    justify-content: space-evenly;
+  }
 }/*# sourceMappingURL=MainContainer.css.map */

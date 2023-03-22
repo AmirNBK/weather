@@ -7,6 +7,14 @@
     padding-top: 15px;
     color: #fff;
 
+    @media screen and (max-width: 1030px) {
+        width: 75%;
+    }
+
+    @media screen and (max-width: 390px) {
+        margin: 15px auto;
+    }
+
     &__day {
         margin-right: 30px;
     }

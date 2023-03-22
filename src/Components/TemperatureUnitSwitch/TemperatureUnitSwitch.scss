@@ -14,6 +14,10 @@
         position: relative;
         width: 200px;
         box-sizing: border-box;
+
+        @media screen and (max-width: 576px) {
+            width: fit-content;
+        }
     }
 
     .button-cover {

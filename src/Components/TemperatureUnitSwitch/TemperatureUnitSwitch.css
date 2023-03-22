@@ -15,6 +15,12 @@
   width: 200px;
   box-sizing: border-box;
 }
+@media screen and (max-width: 576px) {
+  .TemperatureUnitSwitch .toggle-button-cover {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
 .TemperatureUnitSwitch .button-cover {
   height: 100px;
   margin: 20px;

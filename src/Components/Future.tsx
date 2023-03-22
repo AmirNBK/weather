@@ -46,20 +46,22 @@ const FutureWeather = (props: { lat: any; long: any }) => {
 
     return (
         <div className='futureWeatherContainer'>
-            {weekday.slice(0, 5).map((item, index) => {
-                const code = weatherCode[index];
-                return (
-                    <FutureWeatherCard day={item} weatherCode={code} />
-                )
-            })}
-
-            {/* <ReactLoading
-                type='spin'
-                color="#fff"
-                height='10%'
-                width='5%'
-                className='futureWeatherContainer__loading'
-            /> */}
+            {
+                window.innerWidth < 700 ?
+                    weekday.slice(0, 3).map((item, index) => {
+                        const code = weatherCode[index];
+                        return (
+                            <FutureWeatherCard day={item} weatherCode={code} />
+                        )
+                    })
+                    :
+                    weekday.slice(0, 5).map((item, index) => {
+                        const code = weatherCode[index];
+                        return (
+                            <FutureWeatherCard day={item} weatherCode={code} />
+                        )
+                    })
+            }
         </div>
     )
 }

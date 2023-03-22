@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './CurrentLoc.css';
 import axios from 'axios'
-import clear from '../Assets/clear.svg'
-import cloudy from '../Assets/cloudy.svg'
-import foggy from '../Assets/foggy.svg'
-import drizzle from '../Assets/drizzle.svg'
-import freezingDrizzle from '../Assets/freezingDrizzle.svg'
-import rain from '../Assets/rain.svg'
-import snowGrain from '../Assets/snowGrain.svg'
-import snow from '../Assets/snow.svg'
-import thunderstorm from '../Assets/thunderstorm.svg'
-import TemperatureUnitSwitch from './TemperatureUnitSwitch/TemperatureUnitSwitch';
-
+import Lottie from 'react-lottie';
+import clear from '../Assets/lotties/windy.json'
+import cloudy from '../Assets/lotties/partlyCloudy.json'
+import foggy from '../Assets/lotties/foggy.json'
+import rain from '../Assets/lotties/partlyShower.json'
+import freezingDrizzle from '../Assets/lotties/partlyShower.json'
+import snow from '../Assets/lotties/snow.json'
+import snowGrain from '../Assets/lotties/snow.json'
+import thunderstorm from '../Assets/lotties/thunder.json'
+import { AnimationItem } from 'lottie-web';
 
 const Current = (props: { lat: string; long: string; temperatureUnit: boolean, searchedCity: string }) => {
 
@@ -24,7 +23,7 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
     const [city, setCity] = useState("")
     const [weatherCode, setWeatherCode] = useState("")
     const [description, setDescription] = useState("")
-    const [weatherIcon, setWeatherIcon] = useState()
+    const [weatherIcon, setWeatherIcon] = useState<AnimationItem>()
     const [minTemp, setMinTemp] = useState("")
     const [maxTemp, setMaxTemp] = useState("")
 
@@ -68,8 +67,14 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
             })
     }
 
-    // window.navigator.geolocation
-    //     .getCurrentPosition(getPosition);
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: weatherIcon,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
 
     const getCity = () => {
         if (!searchedCity) {
@@ -105,7 +110,7 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
         }
         if (weatherCode == "51" || weatherCode == "53" || weatherCode == "58") {
             setDescription("Drizzle: Light, moderate, and dense intensity")
-            setWeatherIcon(drizzle)
+            setWeatherIcon(rain)
         }
         if (weatherCode == "56" || weatherCode == "57") {
             setDescription("Freezing Drizzle: Light and dense intensity")
@@ -149,7 +154,19 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
     return (
         <div className='CurrentLocMainContainer'>
             <div className='CurrentLocMainContainer__city'> {city} </div>
-            <img src={weatherIcon} className='CurrentLocMainContainer__rainy' />
+            {window.innerWidth < 390 ?
+                <Lottie
+                    options={defaultOptions}
+                    height={140}
+                    width={140}
+                />
+                :
+                <Lottie
+                    options={defaultOptions}
+                    height={200}
+                    width={200}
+                />
+            }
             <div className='CurrentLocMainContainer__temp'> {temp}° </div>
             <div className='CurrentLocMainContainer__tempRange'>
                 <div className='CurrentLocMainContainer__tempRange__left'> {minTemp}° </div>

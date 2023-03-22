@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './FutureWeatherCard.css'
-import clear from '../../Assets/clear.svg'
-import cloudy from '../../Assets/cloudy.svg'
-import foggy from '../../Assets/foggy.svg'
-import drizzle from '../../Assets/drizzle.svg'
-import freezingDrizzle from '../../Assets/freezingDrizzle.svg'
-import rain from '../../Assets/rain.svg'
-import snowGrain from '../../Assets/snowGrain.svg'
-import snow from '../../Assets/snow.svg'
-import thunderstorm from '../../Assets/thunderstorm.svg'
+import clear from '../../Assets/lotties/windy.json'
+import cloudy from '../../Assets/lotties/partlyCloudy.json'
+import foggy from '../../Assets/lotties/foggy.json'
+import rain from '../../Assets/lotties/partlyShower.json'
+import freezingDrizzle from '../../Assets/lotties/partlyShower.json'
+import snow from '../../Assets/lotties/snow.json'
+import snowGrain from '../../Assets/lotties/snow.json'
+import thunderstorm from '../../Assets/lotties/thunder.json'
+import Lottie from 'react-lottie';
 
 const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
     const day = props.day
@@ -19,6 +19,15 @@ const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
     useEffect(() => {
         getDescription()
     }, [weatherCode])
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: weatherIcon,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
 
 
     const getDescription = () => {
@@ -32,7 +41,7 @@ const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
             setWeatherIcon(foggy)
         }
         if (weatherCode == "51" || weatherCode == "53" || weatherCode == "58") {
-            setWeatherIcon(drizzle)
+            setWeatherIcon(rain)
         }
         if (weatherCode == "56" || weatherCode == "57") {
             setWeatherIcon(freezingDrizzle)
@@ -66,7 +75,11 @@ const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
     return (
         <div className='FutureWeatherCard'>
             <div className='FutureWeatherCard__day'> {day} </div>
-            <img src={weatherIcon} />
+            <Lottie
+                options={defaultOptions}
+                height={80}
+                width={80}
+            />
         </div>
     );
 };

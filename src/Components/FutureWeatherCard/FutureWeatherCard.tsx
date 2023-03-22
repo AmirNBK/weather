@@ -22,7 +22,6 @@ const FutureWeatherCard = (props: { day: string; weatherCode: any }) => {
 
 
     const getDescription = () => {
-        console.log(weatherCode);
         if (weatherCode == "0") {
             setWeatherIcon(clear)
         }

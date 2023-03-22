@@ -13,10 +13,11 @@ import thunderstorm from '../Assets/thunderstorm.svg'
 import TemperatureUnitSwitch from './TemperatureUnitSwitch/TemperatureUnitSwitch';
 
 
-const Current = (props: { lat: string; long: string; temperatureUnit: boolean }) => {
+const Current = (props: { lat: string; long: string; temperatureUnit: boolean, searchedCity: string }) => {
 
     const lat = props.lat;
     const long = props.long;
+    const searchedCity = props.searchedCity
     const temperatureUnit = props.temperatureUnit
 
     const [temp, setTemp] = useState("")
@@ -26,11 +27,14 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean })
     const [weatherIcon, setWeatherIcon] = useState()
     const [minTemp, setMinTemp] = useState("")
     const [maxTemp, setMaxTemp] = useState("")
+    
+    useEffect(() => {
+        getDescription()
+    }, [])
 
     useEffect(() => {
         getCity()
-        getDescription()
-    }, [])
+    }, [searchedCity])
 
     const calculateAverage = (array) => {
         var total = 0;
@@ -69,17 +73,22 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean })
         .getCurrentPosition(getPosition);
 
     const getCity = () => {
-        axios
-            .get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
-            .then((response) => {
-                setCity(response.data.city)
-            })
-            .catch((error) => {
-                // handle error
-            })
-            .then(() => {
-                // always executed
-            })
+        if (!searchedCity) {
+            axios
+                .get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
+                .then((response) => {
+                    setCity(response.data.city)
+                })
+                .catch((error) => {
+                    // handle error
+                })
+                .then(() => {
+                    // always executed
+                })
+        }
+        else {
+            setCity(searchedCity)
+        }
     }
 
     const getDescription = () => {

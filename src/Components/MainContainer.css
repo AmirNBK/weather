@@ -1,0 +1,9 @@
+.MainContainer__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  position: relative;
+  top: 30px;
+  padding: 0px 70px;
+}/*# sourceMappingURL=MainContainer.css.map */

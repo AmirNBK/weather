@@ -27,14 +27,19 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
     const [weatherIcon, setWeatherIcon] = useState()
     const [minTemp, setMinTemp] = useState("")
     const [maxTemp, setMaxTemp] = useState("")
-    
-    useEffect(() => {
-        getDescription()
-    }, [])
 
     useEffect(() => {
         getCity()
     }, [searchedCity])
+
+    useEffect(() => {
+        getDescription()
+    }, [weatherCode])
+
+    useEffect(() => {
+        getPosition()
+    }, [lat, long, temperatureUnit])
+
 
     const calculateAverage = (array) => {
         var total = 0;
@@ -47,17 +52,13 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
 
         return (total / count).toFixed(1);
     }
-
     const getPosition = () => {
-        axios
-            .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&temperature_unit=${temperatureUnit}`)
+        axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&temperature_unit=${temperatureUnit}`)
             .then((response) => {
                 setTemp(response.data.current_weather.temperature)
                 setWeatherCode(response.data.current_weather.weathercode)
                 setMinTemp(calculateAverage(response.data.daily.temperature_2m_min))
                 setMaxTemp(calculateAverage(response.data.daily.temperature_2m_max))
-
-
             })
             .catch((error) => {
 
@@ -65,12 +66,10 @@ const Current = (props: { lat: string; long: string; temperatureUnit: boolean, s
             .then(() => {
                 // always executed
             })
-
-        getDescription()
     }
 
-    window.navigator.geolocation
-        .getCurrentPosition(getPosition);
+    // window.navigator.geolocation
+    //     .getCurrentPosition(getPosition);
 
     const getCity = () => {
         if (!searchedCity) {

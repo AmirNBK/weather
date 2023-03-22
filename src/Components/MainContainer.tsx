@@ -26,6 +26,7 @@ const Main = () => {
     const [changeData, setChangeData] = useState(false)
 
     async function handleSearch(cityName) {
+        setChangeData(false)
         setValue(cityName)
         const apiKey = 'pk.eyJ1IjoiYW1pcm5iayIsImEiOiJja3JjY210cWYwam53MzBwZW1yYTZtN2phIn0.5Jx88DAjR4jh0QJ-kXHYoQ'; // Replace with your own Mapbox API key
         const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(cityName)}.json?access_token=${apiKey}`;

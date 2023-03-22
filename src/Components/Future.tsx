@@ -6,10 +6,12 @@ import clear from '../Assets/clear.svg'
 import ReactLoading from 'react-loading';
 
 const FutureWeather = (props: { lat: any; long: any }) => {
+    const lat = props.lat
+    const long = props.long
 
     useEffect(() => {
-        getLocation()
-    }, [])
+        getResponse()
+    }, [lat, long])
 
     const [weekday, setWeekday] = useState([])
     const [weatherCode, setWeatherCode] = useState([])
@@ -20,17 +22,8 @@ const FutureWeather = (props: { lat: any; long: any }) => {
         return date.toLocaleDateString(locale, { weekday: 'long' });
     }
 
-    const getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getResponse);
-        } else {
-            alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-        }
-    }
-    const getResponse = (position) => {
+    const getResponse = () => {
         setLoading(true)
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
         axios
             .get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto`)
             .then((response) => {
@@ -59,7 +52,7 @@ const FutureWeather = (props: { lat: any; long: any }) => {
                     <FutureWeatherCard day={item} weatherCode={code} />
                 )
             })}
-            
+
             {/* <ReactLoading
                 type='spin'
                 color="#fff"
